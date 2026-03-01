@@ -82,9 +82,7 @@ const sessionOptions = {
 
 
 
-app.get("/", (req, res) => {
-  res.render("listings/Error.ejs", { err: { message: "Welcome to StayNest!" } });
-});
+// Route moved below to ensure locals are populated
 
 
 app.use(session(sessionOptions));
@@ -103,6 +101,10 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 })
+
+app.get("/", (req, res) => {
+  res.render("listings/Error.ejs", { err: { message: "Welcome to StayNest!" } });
+});
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);

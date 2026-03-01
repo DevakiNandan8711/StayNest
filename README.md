@@ -1,6 +1,6 @@
 # StayNest 🏠  
 
-A professional, full-stack vacation rental platform designed for seamless property discovery and booking experiences. Built with the **MERN** (MongoDB, Express, Node.js) architecture with an **EJS** frontend, StayNest combines robust backend logic with a premium, responsive UI.  
+A professional, full-stack vacation rental platform designed for seamless property discovery and booking experiences. Developed using the **Model-View-Controller (MVC)** architectural pattern on a **MERN** (MongoDB, Express, Node.js) stack with an **EJS** frontend, StayNest represents a clean, scalable approach to web development.  
 
 ---
 
@@ -25,6 +25,17 @@ A professional, full-stack vacation rental platform designed for seamless proper
 - **Data Integrity:** Schema-level validation using **Joi**.
 - **State Management:** Session-based user tracking and interactive **Flash messages** for better user feedback.
 - **Error Handling:** Centralized 404 and global error handling with custom-styled error views.
+
+---
+
+## 🏗️ Project Architecture (MVC)
+
+StayNest is built following the **Model-View-Controller (MVC)** design pattern to ensure clean code separation and scalability:
+
+- **Models:** Handles data structures and MongoDB interactions using Mongoose (e.g., `listing.js`, `review.js`, `user.js`).
+- **Views:** Manages UI rendering using EJS templates for dynamic content display (located in the `view/` directory).
+- **Controllers:** Contains the core business logic, linking user interactions from routes to the data models (located in the `controllers/` directory).
+- **Routes:** Defines the application endpoints and connects them to the appropriate controller logic.
 
 ---
 
@@ -84,9 +95,8 @@ A professional, full-stack vacation rental platform designed for seamless proper
 Distributed under the **ISC License**. See `LICENSE` for more information.
 
 ## 🤝 Contact
-- **Developer Name:** Ganesh
-- **Portfolio:** [Link to Portfolio]
-- **LinkedIn:** [Link to LinkedIn]  
+- **Developer Name:** Devaki Nandan 
+- **LinkedIn:** https://www.linkedin.com/in/devaki-nandan8711 
 
 ---
 *StayNest – Real Experiences, Real Homes.*

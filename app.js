@@ -83,7 +83,7 @@ const sessionOptions = {
 
 
 app.get("/", (req, res) => {
-  res.redirect("/listings");
+  res.render("listings/Error.ejs", { err: { message: "Welcome to StayNest!" } });
 });
 
 
@@ -156,7 +156,7 @@ app.get("/testListing", async (_req, res) => {
   }
 });
 */
-app.all("*", (req, res, next) => {
+app.all("*path", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
 });
 

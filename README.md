@@ -1,6 +1,8 @@
 # StayNest 🏠  
 
-A professional, full-stack vacation rental platform designed for seamless property discovery and booking experiences. Developed using the **Model-View-Controller (MVC)** architectural pattern on a **MERN** (MongoDB, Express, Node.js) stack with an **EJS** frontend, StayNest represents a clean, scalable approach to web development.  
+A professional, full-stack vacation rental platform designed for seamless property discovery and booking experiences. Developed using the **Model-View-Controller (MVC)** architectural pattern on a **MERN** (MongoDB, Express, Node.js) stack with an **EJS** frontend.
+
+**[🌐 Live Demo](https://staynest-xzt0.onrender.com)**  
 
 ---
 

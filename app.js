@@ -20,7 +20,7 @@ const User = require("./models/user.js");
 
 
 //const MONGO_URL = "mongodb://127.0.0.1:27017/StayNest";//
-const dbUrl =process.env.ATLASDB_URL;
+const dbUrl = process.env.ATLASDB_URL;
 
 
 const { listingSchema, reviewSchema } = require("./schema.js");//
@@ -53,11 +53,11 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 const store = MongoStore.create({
   mongoUrl: dbUrl,
-  crypto:{
-   secret:process.env.SECRET,
-   },
-   touchAfter: 24 * 3600,
-   
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+
 
 });
 
@@ -82,13 +82,9 @@ const sessionOptions = {
 
 
 
-/*
 app.get("/", (req, res) => {
-  res.send("Hi,I am root");
-   URL: http://localhost:8080/
-  Shows: "Hi,I am root" text
-   Page: Simple text page 
-}); */
+  res.redirect("/listings");
+});
 
 
 app.use(session(sessionOptions));
@@ -160,22 +156,13 @@ app.get("/testListing", async (_req, res) => {
   }
 });
 */
-app.all("*splat", (req, res, next) => {
-
+app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
-
 });
-
-app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "Something went wrong" } = err;
-  res.status(statusCode).send(message);
-
-});
-
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "something went wrong" } = err;
-  res.status(statusCode).render("Error.ejs", { err });
+  res.status(statusCode).render("listings/Error.ejs", { err });
 })
 
 

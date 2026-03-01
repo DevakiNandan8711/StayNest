@@ -139,6 +139,10 @@ body {
     display: flex;
 }
 
+.btns .btn {
+    width: 100px;
+}
+
 .show-card {
     padding-left: 0 !important;
     padding-right: 0;

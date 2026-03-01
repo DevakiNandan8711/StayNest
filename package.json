@@ -1,9 +1,7 @@
 {
-  
-    "engines": {
-      "node": "22.16.0"
-    },
-  
+  "engines": {
+    "node": "22.16.0"
+  },
   "name": "staynest",
   "version": "1.0.0",
   "main": "app.js",
@@ -19,7 +17,7 @@
   "dependencies": {
     "@maptiler/client": "^2.7.0",
     "@maptiler/sdk": "^3.11.1",
-    "cloudinary": "^2.9.0",
+    "cloudinary": "^1.41.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^6.0.0",
     "dotenv": "^17.3.1",

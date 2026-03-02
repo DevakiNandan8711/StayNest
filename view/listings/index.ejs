@@ -67,7 +67,7 @@
             background: #f7f7f7;
         }
 
-        /* Mobile Responsive Adjustments */
+        /* Responsive Adjustments */
         @media (max-width: 992px) {
             #filters-container {
                 flex-direction: column;
@@ -148,11 +148,12 @@
         </div>
     </div>
 
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+    <!-- Fixed Grid: row-cols-1 ensures single column on mobile (< 576px) -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-3">
         <% for(let listing of allListings){ %>
-            <div class="card col listing-card">
+            <div class="col">
                 <a href="/listings/<%=listing._id%>" class="listing-link">
-                    <div class="card col listing-card">
+                    <div class="card listing-card">
                         <img src="<%=listing.image.url %>" class="card-img-top" alt="listing_image"
                             style="height:20rem" />
                         <div class="card-img-overlay"></div>

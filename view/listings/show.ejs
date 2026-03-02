@@ -3,7 +3,7 @@
     <script>
         // Ensure map variables are globally available before map.js module loads
         // .trim() is added to ensure any accidental whitespace in .env doesn't break the key
-        window.mapToken = "<%=process.env.MAPTILER_TOKEN %>";
+        window.maptilerToken = "<%=process.env.MAPTILER_TOKEN %>";
         window.coordinates = <%- JSON.stringify(listing.geometry && listing.geometry.coordinates ? listing.geometry.coordinates : [77.5946, 12.9716]) %>;
         window.locationName = "<%= listing.location %>";
       

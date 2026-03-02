@@ -1,7 +1,7 @@
 // public/js/map.js
 
 // no require – coordinates and mapToken come from the page
-maptilersdk.config.apiKey = mapToken;
+maptilersdk.config.apiKey = maptilerToken;
 
 const map = new maptilersdk.Map({
     container: 'map',

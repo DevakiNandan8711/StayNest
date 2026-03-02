@@ -74,8 +74,11 @@ StayNest is built following the **Model-View-Controller (MVC)** design pattern t
    CLOUD_NAME=your_cloudinary_name
    CLOUD_API_KEY=your_cloudinary_key
    CLOUD_API_SECRET=your_cloudinary_secret
-   MAP_TOKEN=your_maptiler_token
+   # use a MapTiler Cloud API key – sign up at https://maptiler.com
+   MAPTILER_TOKEN=your_maptiler_token
    ```
+   > ⚠️ The variable is referenced as `process.env.MAPTILER_TOKEN` in the code; make sure the name matches exactly.
+
 
 4. **Run the application:**
    ```bash

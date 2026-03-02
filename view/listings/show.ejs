@@ -3,7 +3,7 @@
     <script>
         // Ensure map variables are globally available before map.js module loads
         // .trim() is added to ensure any accidental whitespace in .env doesn't break the key
-        window.mapToken = "<%= process.env.MAPBOX_TOKEN.trim() %>";
+        window.mapToken = "<%= mapToken %>";
         window.coordinates = <% - JSON.stringify(listing.geometry && listing.geometry.coordinates ? listing.geometry.coordinates : [77.5946, 12.9716]) %>;
         window.locationName = "<%= listing.location %>";
     </script>
@@ -43,9 +43,9 @@
             font-weight: 500;
         }
 
-        /* Container for buttons to ensure equal width */
+        /* Container for buttons to ensure small consistent width */
         .btn-container {
-            width: 9rem;
+            width: 5.5rem;
         }
 
         @media (max-width: 576px) {
@@ -63,19 +63,19 @@
 
             .btns {
                 gap: 0.75rem;
-                width: 100%;
+                justify-content: flex-start;
             }
 
-            /* Equal widths for both button containers on mobile */
+            /* Maintain small width on mobile instead of flex: 1 */
             .btn-container {
-                flex: 1;
-                width: auto;
+                width: 5.5rem;
             }
 
             .btns .edit-btn,
             .btns .delete-btn {
                 width: 100% !important;
-                height: 3rem !important;
+                height: 2.5rem !important;
+                font-size: 0.9rem;
             }
         }
     </style>

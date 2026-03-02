@@ -13,4 +13,6 @@ const map = new maptilersdk.Map({
 
 new maptilersdk.Marker({ color: 'red' })
     .setLngLat(coordinates)
+    .setPopup(new maptilersdk.Popup({ offset: 25 })
+        .setHTML(`<h4>${locationName}</h4><p>Exact location will be provided after booking</p>`))
     .addTo(map);

@@ -1,13 +1,28 @@
-maptilersdk.config.apiKey = window.mapToken;
+maptilersdk.config.apiKey = window.mapToken || '';
+
+// Default coordinates if something is wrong
+const centerCoords = (window.coordinates && window.coordinates.length === 2)
+  ? window.coordinates
+  : [77.5946, 12.9716]; // Default to Bangalore if missing
 
 const map = new maptilersdk.Map({
-  container: 'map', // container's id or the HTML element to render the map
+  container: 'map', // container's id
   style: maptilersdk.MapStyle.STREETS,
-  center: window.coordinates,
-  zoom: 9,
+  center: centerCoords,
+  zoom: 11,
 });
 
 const marker = new maptilersdk.Marker({ color: "red" })
-  .setLngLat(window.coordinates)
-  .setPopup(new maptilersdk.Popup({ offset: 25 }).setHTML(`<h4>${window.locationName}</h4><p>Exact location of booked StayNest</p>`))
+  .setLngLat(centerCoords)
+  .setPopup(
+    new maptilersdk.Popup({ offset: 25 })
+      .setHTML(
+        `<h4>${window.locationName || 'StayNest'}</h4><p>Exact location provided after booking</p>`
+      )
+  )
   .addTo(map);
+
+// Force resize to ensure map fills container properly
+map.on('load', () => {
+  map.resize();
+});

@@ -76,7 +76,7 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currentUser = req.user;
-  res.locals.mapToken = process.env.MAPBOX_TOKEN ? process.env.MAPBOX_TOKEN.trim() : "";
+  res.locals.mapToken = process.env.MAPTILER_TOKEN ? process.env.MAPTILER_TOKEN.trim() : "";
   next();
 });
 

@@ -1,6 +1,6 @@
 const Listing = require("../models/listing.js");
 const maptilerClient = require("@maptiler/client");
-const mapToken = process.env.MAPBOX_TOKEN ? process.env.MAPBOX_TOKEN.trim() : "";
+const mapToken = process.env.MAPTILER_TOKEN ? process.env.MAPTILER_TOKEN.trim() : "";
 maptilerClient.config.apiKey = mapToken;
 
 

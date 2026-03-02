@@ -6,7 +6,7 @@ const initdata = require("./data.js");
 const Listing = require("../models/listing.js");
 const maptilerClient = require("@maptiler/client");
 
-maptilerClient.config.apiKey = process.env.MAPBOX_TOKEN;
+maptilerClient.config.apiKey = process.env.MAPTILER_TOKEN;
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/StayNest";
 

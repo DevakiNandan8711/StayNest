@@ -5,11 +5,12 @@
         #filters-container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            width: 100%;
             margin-top: 1rem;
             gap: 1.5rem;
         }
 
+        /* Standard Flex layout for larger screens */
         #filters {
             display: flex;
             align-items: center;
@@ -58,50 +59,49 @@
             align-items: center;
             white-space: nowrap;
             background: #fff;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
             height: 3.5rem;
+            min-width: 250px;
         }
 
-        .tax-toggle:hover {
-            border-color: #b0b0b0;
-            background: #f7f7f7;
-        }
-
-        /* Responsive Adjustments */
+        /* Responsive Grid for mobile view */
         @media (max-width: 992px) {
             #filters-container {
                 flex-direction: column;
-                align-items: stretch;
                 gap: 1rem;
+                width: 100%;
             }
 
             #filters {
+                width: 100%;
                 display: grid;
                 grid-template-columns: repeat(5, 1fr);
                 /* 5 icons per row */
-                gap: 1rem 0;
-                overflow-x: hidden;
-                /* No scrolling needed with 2 rows */
+                gap: 1.5rem 0.5rem;
+                overflow: hidden;
                 justify-items: center;
             }
 
             .filter {
                 margin-right: 0;
-                width: 100%;
+                width: auto;
+            }
+
+            .filter p {
+                font-size: 0.65rem;
             }
 
             .tax-toggle {
-                margin: 0;
                 width: 100%;
                 justify-content: center;
                 height: auto;
                 padding: 0.6rem 1rem;
+                min-width: unset;
             }
         }
 
         .tax-info {
             display: none;
-            color: #717171;
+            color: #7d7d7d;
             font-weight: 500;
         }
     </style>
@@ -176,8 +176,6 @@
                                 &#8377;<%=listing.price && listing.price !==null ? listing.price.toLocaleString("en-IN")
                                     : "Price not available" %> /night
                                     <i class="tax-info">&nbsp; &nbsp;+18% GST</i>
-                                    <br />
-                                    <%= listing.location %>, <%= listing.country %>
                             </p>
                         </div>
                     </div>

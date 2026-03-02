@@ -30,10 +30,11 @@
             align-items: center;
         }
 
-        /* Standardize all buttons to be the exact same size */
+        /* Target the link directly and the button inside the form */
         .btns .edit-btn,
         .btns .delete-btn {
-            width: 8rem !important;
+            width: 100%;
+            /* Use flexible width inside their parent item */
             height: 2.8rem !important;
             display: inline-flex;
             align-items: center;
@@ -41,11 +42,12 @@
             border-radius: 0.5rem;
             font-weight: 500;
             margin: 0 !important;
+            text-decoration: none;
         }
 
-        /* Review stars container fix */
-        .starability-slot {
-            min-height: 2.5rem;
+        /* Fixed width container for desktop */
+        .btn-container-item {
+            width: 8rem;
         }
 
         /* Map container styling */
@@ -54,6 +56,7 @@
             height: 400px;
             border-radius: 1rem;
             border: 1px solid #ddd;
+            background-color: #f7f7f7;
         }
 
         @media (max-width: 576px) {
@@ -71,12 +74,13 @@
 
             .btns {
                 gap: 1rem;
+                width: 100%;
             }
 
-            .btns .edit-btn,
-            .btns .delete-btn {
-                width: 50% !important;
-                /* Side by side on mobile */
+            .btn-container-item {
+                flex: 1;
+                /* Each takes exactly 50% */
+                width: auto;
             }
         }
     </style>
@@ -115,9 +119,10 @@
 
             <% if(currentUser && listing.owner._id.equals(currentUser._id)) { %>
                 <div class="btns mb-4">
-                    <a href="/listings/<%=listing._id %>/edit" class="btn btn-dark edit-btn">Edit</a>
-                    <form method="post" action="/listings/<%=listing._id %>?_method=DELETE"
-                        class="d-inline flex-grow-1">
+                    <div class="btn-container-item">
+                        <a href="/listings/<%=listing._id %>/edit" class="btn btn-dark edit-btn">Edit</a>
+                    </div>
+                    <form method="post" action="/listings/<%=listing._id %>?_method=DELETE" class="btn-container-item">
                         <button class="btn btn-danger delete-btn">Delete</button>
                     </form>
                 </div>

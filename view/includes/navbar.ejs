@@ -19,18 +19,28 @@
 
   .search-inp {
     border-radius: 25px;
-    padding: 0.5rem 3rem 0.5rem 3rem;
-    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    width: 250px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     .search-inp {
-      padding: 0.5rem 1rem;
       width: 100%;
+      margin-bottom: 0.5rem;
     }
 
     .navbar-nav {
-      text-align: center;
+      padding: 0.5rem 0;
+    }
+
+    .nav-link {
+      padding: 0.75rem 0 !important;
+      border-bottom: 1px solid #eee;
+    }
+
+    .nav-link b {
+      display: block;
     }
   }
 </style>

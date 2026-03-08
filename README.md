@@ -1,29 +1,33 @@
-# StayNest 🏠  
+# StayNest 🏠
 
 A professional, full-stack vacation rental platform designed for seamless property discovery and booking experiences. Developed using the **Model-View-Controller (MVC)** architectural pattern on a **MERN** (MongoDB, Express, Node.js) stack with an **EJS** frontend.
 
-**[🌐 Live Demo](https://staynest-xzt0.onrender.com)**  
+**[🌐 Live Demo](https://staynest-xzt0.onrender.com)**
 
 ---
 
 ## 🚀 Key Features
 
 ### 🏢 Property Management (CRUD)
+
 - **Discover:** Browse through a variety of unique listings across various countries.
 - **Host:** Authenticated users can create and publish their own listings with detailed descriptions and pricing.
 - **Manage:** Property owners have full control to edit or delete their listings through an intuitive dashboard.
 
 ### 🔐 Security & Authentication
+
 - **User Accounts:** Secure Signup, Login, and Logout functionality powered by **Passport.js**.
 - **Role-Based Access:** Only property owners can modify listings; only review authors can delete their own feedback.
 
 ### 🖼️ Rich User Experience
+
 - **Interactive Maps:** Real-time location visualization for listings using **Maptiler SDK**.
 - **Image Hosting:** Seamless property image uploads using **Cloudinary** and **Multer**.
 - **Review System:** Users can provide 1-5 star ratings and leave detailed reviews.
 - **Responsive Design:** A mobile-first UI built with **Bootstrap 5** and custom CSS for a premium feel.
 
 ### 🛠️ Robust Backend
+
 - **Data Integrity:** Schema-level validation using **Joi**.
 - **State Management:** Session-based user tracking and interactive **Flash messages** for better user feedback.
 - **Error Handling:** Centralized 404 and global error handling with custom-styled error views.
@@ -56,18 +60,21 @@ StayNest is built following the **Model-View-Controller (MVC)** design pattern t
 ## 🛠️ Setup & Local Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/DevakiNandan8711/StayNest.git
    cd StayNest
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Configure Environment Variables:**  
    Create a `.env` file in the root directory and add:
+
    ```env
    ATLASDB_URL=your_mongodb_atlas_url
    SECRET=your_session_secret
@@ -77,8 +84,8 @@ StayNest is built following the **Model-View-Controller (MVC)** design pattern t
    # use a MapTiler Cloud API key – sign up at https://maptiler.com
    MAPTILER_TOKEN=your_maptiler_token
    ```
-   > ⚠️ The variable is referenced as `process.env.MAPTILER_TOKEN` in the code; make sure the name matches exactly.
 
+   > ⚠️ The variable is referenced as `process.env.MAPTILER_TOKEN` in the code; make sure the name matches exactly.
 
 4. **Run the application:**
    ```bash
@@ -89,6 +96,7 @@ StayNest is built following the **Model-View-Controller (MVC)** design pattern t
 ---
 
 ## � Roadmap & Future Improvements
+
 - [ ] **Payments:** Integrated Stripe/Razorpay for secure bookings.
 - [ ] **Category Filters:** Advanced filtering for 'Beaches', 'Mountains', 'Trending', etc.
 - [ ] **Search Engine:** Fuzzy search for location and property titles.
@@ -97,11 +105,14 @@ StayNest is built following the **Model-View-Controller (MVC)** design pattern t
 ---
 
 ## � License
+
 Distributed under the **ISC License**. See `LICENSE` for more information.
 
 ## 🤝 Contact
-- **Developer Name:** Devaki Nandan 
-- **LinkedIn:** https://www.linkedin.com/in/devaki-nandan8711 
+
+- **Developer Name:** Devaki Nandan
+- **LinkedIn:** https://www.linkedin.com/in/devaki-nandan8711
 
 ---
-*StayNest – Real Experiences, Real Homes.*
+
+_StayNest – Real Experiences, Real Homes._

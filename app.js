@@ -84,8 +84,14 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-app.all("*path", (req, res, next) => {
-  next(new ExpressError(404, "Access restricted. Please sign in to explore our premium listings."));
+// Redirect root path to listings
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
+// Catch-all for undefined routes
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "Page Not Found"));
 });
 
 app.use((err, req, res, next) => {

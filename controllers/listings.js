@@ -1,7 +1,7 @@
 const Listing = require("../models/listing.js");
 const maptilerClient = require("@maptiler/client");
-const mapToken = process.env.MAPTILER_TOKEN ? process.env.MAPTILER_TOKEN.trim() : "";
-maptilerClient.config.apiKey = mapToken;
+const maptilerToken = process.env.MAPTILER_TOKEN ? process.env.MAPTILER_TOKEN.trim() : "";
+maptilerClient.config.apiKey = maptilerToken;
 
 
 module.exports.index = async (req, res) => {

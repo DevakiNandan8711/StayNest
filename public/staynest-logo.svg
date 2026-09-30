@@ -1,20 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  <!-- StayNest Haven Brand Mark (Transparent Coral) -->
-  <g fill="none" stroke="#FE424D" stroke-width="36" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Outer Roof & Nest Contour -->
-    <path d="M 256 88 
-             L 138 214 
-             C 106 250 106 318 142 368 
-             C 176 414 224 426 256 426 
-             C 288 426 336 414 370 368 
-             C 406 318 406 250 374 214 
-             Z" />
+  <!-- StayNest Modern Vacation Villa Emblem (Transparent Coral) -->
+  <g fill="none" stroke="#FE424D" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Roof with generous eaves overhang -->
+    <path d="M 112 214 L 256 98 L 400 214" stroke-width="38" />
 
-    <!-- Inner Hearth / Welcome Doorway -->
-    <path d="M 206 340 
-             C 206 270 256 236 256 236 
-             C 256 236 306 270 306 340 
-             C 306 368 284 380 256 380 
-             C 228 380 206 368 206 340 Z" />
+    <!-- Cottage Chimney -->
+    <path d="M 334 135 V 170" stroke-width="26" />
+
+    <!-- House Body Walls & Foundation -->
+    <path d="M 152 214 V 392 H 360 V 214" stroke-width="34" />
+
+    <!-- Welcoming Arched Front Door -->
+    <path d="M 218 392 V 304 C 218 282 235 266 256 266 C 277 266 294 282 294 304 V 392" stroke-width="28" />
+
+    <!-- Cozy Attic Porthole Window -->
+    <circle cx="256" cy="192" r="18" fill="#FE424D" stroke="none" />
   </g>
 </svg>

@@ -7,7 +7,7 @@
       <stop offset="100%" stop-color="#CF1928" />
     </linearGradient>
 
-    <!-- Subtle Glaze for Apple / Modern OS App Icon Feel -->
+    <!-- Subtle Glaze for Modern App Feel -->
     <linearGradient id="sn-glaze" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.22" />
       <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.0" />
@@ -16,7 +16,7 @@
 
     <!-- Soft Depth Shadow -->
     <filter id="sn-shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#800612" flood-opacity="0.38" />
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#800612" flood-opacity="0.35" />
     </filter>
   </defs>
 
@@ -25,25 +25,21 @@
   <rect width="512" height="512" rx="120" fill="url(#sn-glaze)" />
   <rect x="3" y="3" width="506" height="506" rx="117" fill="none" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="4" />
 
-  <!-- StayNest Original Haven Symbol:
-       1. Roof Gable at top (Stay / Shelter)
-       2. Flowing into wide, warm Nest Cradle (Nest / Sanctuary)
-       3. Welcoming Doorway Hearth (Hospitality / Home) -->
-  <g filter="url(#sn-shadow)" fill="none" stroke="#FFFFFF" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Outer Roof & Nest Contour -->
-    <path d="M 256 88 
-             L 138 214 
-             C 106 250 106 318 142 368 
-             C 176 414 224 426 256 426 
-             C 288 426 336 414 370 368 
-             C 406 318 406 250 374 214 
-             Z" />
+  <!-- StayNest Modern Vacation Villa Emblem -->
+  <g filter="url(#sn-shadow)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Roof with generous eaves overhang -->
+    <path d="M 112 214 L 256 98 L 400 214" stroke-width="38" />
 
-    <!-- Inner Hearth / Welcome Doorway -->
-    <path d="M 206 340 
-             C 206 270 256 236 256 236 
-             C 256 236 306 270 306 340 
-             C 306 368 284 380 256 380 
-             C 228 380 206 368 206 340 Z" />
+    <!-- Cottage Chimney -->
+    <path d="M 334 135 V 170" stroke-width="26" />
+
+    <!-- House Body Walls & Foundation -->
+    <path d="M 152 214 V 392 H 360 V 214" stroke-width="34" />
+
+    <!-- Welcoming Arched Front Door -->
+    <path d="M 218 392 V 304 C 218 282 235 266 256 266 C 277 266 294 282 294 304 V 392" stroke-width="28" />
+
+    <!-- Cozy Attic Porthole Window -->
+    <circle cx="256" cy="192" r="18" fill="#FFFFFF" stroke="none" />
   </g>
 </svg>

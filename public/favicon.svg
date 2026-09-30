@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient in StayNest Signature Coral -->
+    <linearGradient id="sn-brand-bg" x1="10%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#FF5A60" />
+      <stop offset="50%" stop-color="#FE424D" />
+      <stop offset="100%" stop-color="#CF1928" />
+    </linearGradient>
+
+    <!-- Subtle Glaze for Apple / Modern OS App Icon Feel -->
+    <linearGradient id="sn-glaze" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.22" />
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.12" />
+    </linearGradient>
+
+    <!-- Soft Depth Shadow -->
+    <filter id="sn-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#800612" flood-opacity="0.38" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Canvas (High-contrast visibility in Dark & Light tab bars) -->
+  <rect width="512" height="512" rx="120" fill="url(#sn-brand-bg)" />
+  <rect width="512" height="512" rx="120" fill="url(#sn-glaze)" />
+  <rect x="3" y="3" width="506" height="506" rx="117" fill="none" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="4" />
+
+  <!-- StayNest Original Haven Symbol:
+       1. Roof Gable at top (Stay / Shelter)
+       2. Flowing into wide, warm Nest Cradle (Nest / Sanctuary)
+       3. Welcoming Doorway Hearth (Hospitality / Home) -->
+  <g filter="url(#sn-shadow)" fill="none" stroke="#FFFFFF" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Roof & Nest Contour -->
+    <path d="M 256 88 
+             L 138 214 
+             C 106 250 106 318 142 368 
+             C 176 414 224 426 256 426 
+             C 288 426 336 414 370 368 
+             C 406 318 406 250 374 214 
+             Z" />
+
+    <!-- Inner Hearth / Welcome Doorway -->
+    <path d="M 206 340 
+             C 206 270 256 236 256 236 
+             C 256 236 306 270 306 340 
+             C 306 368 284 380 256 380 
+             C 228 380 206 368 206 340 Z" />
+  </g>
+</svg>

@@ -16,6 +16,7 @@ const User = require("./models/user.js");
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 const Listing = require("./models/listing.js");
 const { backfillCategories } = require("./utils/categoryHelper.js");
 

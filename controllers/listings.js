@@ -1,5 +1,6 @@
 const Listing = require("../models/listing.js");
 const maptilerClient = require("@maptiler/client");
+const { getListingCategory } = require("../utils/categoryHelper.js");
 const maptilerToken = process.env.MAPTILER_TOKEN ? process.env.MAPTILER_TOKEN.trim() : "";
 maptilerClient.config.apiKey = maptilerToken;
 
@@ -7,9 +8,6 @@ maptilerClient.config.apiKey = maptilerToken;
 module.exports.index = async (req, res) => {
     let { category, search } = req.query;
     let query = {};
-    if (category && category !== "all") {
-        query.category = category.toLowerCase();
-    }
     if (search) {
         query.$or = [
             { title: { $regex: search, $options: "i" } },
@@ -18,6 +16,19 @@ module.exports.index = async (req, res) => {
         ];
     }
     let listings = await Listing.find(query);
+
+    // Resolve accurate category for each listing (even before DB migration completes)
+    listings = listings.map(l => {
+        const item = l.toObject ? l.toObject() : { ...l };
+        item.category = getListingCategory(item);
+        return item;
+    });
+
+    if (category && category.toLowerCase() !== "all") {
+        const catLower = category.toLowerCase();
+        listings = listings.filter(l => (l.category || "").toLowerCase() === catLower);
+    }
+
     res.render("listings/index", { 
         allListings: listings, 
         activeCategory: category || "all", 

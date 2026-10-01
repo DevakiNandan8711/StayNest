@@ -225,48 +225,30 @@
 
     <!-- Listings Container -->
     <% 
-        const titleCategoryMap = {
-            "cozy beachfront cottage": "pools",
-            "modern loft in downtown": "rooms",
-            "mountain retreat": "mountain",
-            "historic villa in tuscany": "castles",
-            "secluded treehouse getaway": "camping",
-            "beachfront paradise": "trending",
-            "rustic cabin by the lake": "camping",
-            "luxury penthouse with city views": "cities",
-            "ski-in/ski-out chalet": "arctic",
-            "safari lodge in the serengeti": "farms",
-            "historic canal house": "cities",
-            "private island retreat": "pools",
-            "charming cottage in the cotswolds": "farms",
-            "historic brownstone in boston": "cities",
-            "beachfront bungalow in bali": "pools",
-            "mountain view cabin in banff": "mountain",
-            "art deco apartment in miami": "rooms",
-            "tropical villa in phuket": "pools",
-            "historic castle in scotland": "castles",
-            "desert oasis in dubai": "trending",
-            "rustic log cabin in montana": "mountain",
-            "beachfront villa in greece": "pools",
-            "eco-friendly treehouse retreat": "domes",
-            "historic cottage in charleston": "rooms",
-            "modern apartment in tokyo": "cities",
-            "lakefront cabin in new hampshire": "camping",
-            "luxury villa in the maldives": "pools",
-            "ski chalet in aspen": "arctic",
-            "secluded beach house in costa rica": "trending",
-            "all-inclusive tropical island resort": "trending"
-        };
+        function getCardCategories(listing) {
+            const text = ((listing.title || "") + " " + (listing.description || "") + " " + (listing.location || "") + " " + (listing.country || "")).toLowerCase();
+            const categories = new Set();
+            if (listing.category && typeof listing.category === "string" && listing.category.trim() && listing.category !== "trending") {
+                categories.add(listing.category.toLowerCase().trim());
+            }
+            if (/mountain|alps|chalet|ski|snow|hill|peak|summit|rockies|banff|aspen|highland|verbier|cliff|himalaya/.test(text)) categories.add("mountain");
+            if (/arctic|snow|ice|ski|chalet|winter|glacier|alps|verbier|aspen|frozen|polar/.test(text)) categories.add("arctic");
+            if (/city|cities|skyline|urban|downtown|metro|apartment|penthouse|loft|dubai|tokyo|new york|boston|miami|amsterdam|paris|london|florence|charleston|rome|berlin|singapore/.test(text)) categories.add("cities");
+            if (/room|rooms|suite|studio|apartment|loft|condo|flat|cottage|brownstone|bed|villa|cabin|chalet|house|home|stay/.test(text)) categories.add("rooms");
+            if (/castle|palace|mansion|fort|chateau|historic|villa|tuscany|scotland|heritage|royal|monument|estate/.test(text)) categories.add("castles");
+            if (/pool|pools|beach|beachfront|sea|ocean|coast|coastal|water|lake|island|resort|swim|swimming|bay|tropical|bungalow|maldives|bali|cancun|mykonos|fiji|phuket|nassau|bahamas|costa rica/.test(text)) categories.add("pools");
+            if (/camp|camping|treehouse|tent|glamping|cabin|log cabin|nature|forest|wood|woods|jungle|park|lake|safari|retreat|unplug|outdoor|serengeti/.test(text)) categories.add("camping");
+            if (/farm|farms|barn|ranch|cow|pasture|countryside|safari|serengeti|wildlife|tanzania|cotswolds|rural|vineyard/.test(text)) categories.add("farms");
+            if (/dome|domes|igloo|cave|cappadocia|treehouse|eco|pod|hut|unique|earth|yurt/.test(text)) categories.add("domes");
+            if (/trending|luxury|paradise|resort|oasis|exclusive|retreat|island|penthouse|chalet|skyline/.test(text) || (listing.price && Number(listing.price) >= 2000) || categories.size === 0) categories.add("trending");
+            return Array.from(categories).join(" ");
+        }
     %>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-3" id="listings-grid">
         <% for(let listing of allListings){ 
-            let effectiveCat = (listing.category || "").toLowerCase().trim();
-            const normalizedTitle = (listing.title || "").toLowerCase().trim();
-            if (!effectiveCat || effectiveCat === "trending") {
-                effectiveCat = titleCategoryMap[normalizedTitle] || effectiveCat || "trending";
-            }
+            const cardCats = getCardCategories(listing);
         %>
-            <div class="col listing-col" data-category="<%= effectiveCat %>" data-title="<%= listing.title %>">
+            <div class="col listing-col" data-categories="<%= cardCats %>" data-title="<%= listing.title %>">
                 <a href="/listings/<%=listing._id%>" class="listing-link">
                     <div class="card listing-card">
                         <img src="<%=listing.image.url %>" class="card-img-top" alt="listing_image"
@@ -298,39 +280,6 @@
     </div>
 
     <script>
-        const clientCategoryMap = {
-            "cozy beachfront cottage": "pools",
-            "modern loft in downtown": "rooms",
-            "mountain retreat": "mountain",
-            "historic villa in tuscany": "castles",
-            "secluded treehouse getaway": "camping",
-            "beachfront paradise": "trending",
-            "rustic cabin by the lake": "camping",
-            "luxury penthouse with city views": "cities",
-            "ski-in/ski-out chalet": "arctic",
-            "safari lodge in the serengeti": "farms",
-            "historic canal house": "cities",
-            "private island retreat": "pools",
-            "charming cottage in the cotswolds": "farms",
-            "historic brownstone in boston": "cities",
-            "beachfront bungalow in bali": "pools",
-            "mountain view cabin in banff": "mountain",
-            "art deco apartment in miami": "rooms",
-            "tropical villa in phuket": "pools",
-            "historic castle in scotland": "castles",
-            "desert oasis in dubai": "trending",
-            "rustic log cabin in montana": "mountain",
-            "beachfront villa in greece": "pools",
-            "eco-friendly treehouse retreat": "domes",
-            "historic cottage in charleston": "rooms",
-            "modern apartment in tokyo": "cities",
-            "lakefront cabin in new hampshire": "camping",
-            "luxury villa in the maldives": "pools",
-            "ski chalet in aspen": "arctic",
-            "secluded beach house in costa rica": "trending",
-            "all-inclusive tropical island resort": "trending"
-        };
-
         // Tax switch functionality
         const taxSwitch = document.getElementById("switchCheckDefault");
         if (taxSwitch) {
@@ -368,15 +317,26 @@
                 }
             });
 
-            // Show / hide listing cards
+            // Show / hide listing cards based on multi-tag matching
             listingCards.forEach(card => {
-                let cardCategory = (card.getAttribute("data-category") || "").toLowerCase().trim();
-                const cardTitle = (card.getAttribute("data-title") || "").toLowerCase().trim();
-                if (!cardCategory || cardCategory === "trending") {
-                    cardCategory = clientCategoryMap[cardTitle] || cardCategory || "trending";
+                let cardCats = (card.getAttribute("data-categories") || "").toLowerCase().split(" ").filter(Boolean);
+                
+                // Fallback: if data-categories was empty or only trending, compute from title
+                if (cardCats.length === 0 || (cardCats.length === 1 && cardCats[0] === "trending")) {
+                    const text = ((card.getAttribute("data-title") || "")).toLowerCase();
+                    if (/mountain|alps|chalet|ski|snow|banff|aspen/.test(text)) cardCats.push("mountain");
+                    if (/arctic|snow|ice|ski|chalet|winter/.test(text)) cardCats.push("arctic");
+                    if (/city|cities|skyline|urban|apartment|penthouse|loft|dubai|tokyo|york/.test(text)) cardCats.push("cities");
+                    if (/room|suite|apartment|loft|condo|cottage|cabin|chalet|villa|treehouse/.test(text)) cardCats.push("rooms");
+                    if (/castle|palace|mansion|historic|villa/.test(text)) cardCats.push("castles");
+                    if (/pool|beach|sea|ocean|coast|lake|island|resort|bali/.test(text)) cardCats.push("pools");
+                    if (/camp|treehouse|tent|cabin|nature|forest|jungle/.test(text)) cardCats.push("camping");
+                    if (/farm|barn|ranch|safari|countryside/.test(text)) cardCats.push("farms");
+                    if (/dome|cave|cappadocia|treehouse|eco/.test(text)) cardCats.push("domes");
+                    cardCats.push("trending");
                 }
 
-                if (categoryLower === "all" || cardCategory === categoryLower) {
+                if (categoryLower === "all" || cardCats.includes(categoryLower)) {
                     card.classList.remove("fade-out");
                     card.classList.add("fade-in");
                     card.style.display = "block";

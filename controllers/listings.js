@@ -1,6 +1,6 @@
 const Listing = require("../models/listing.js");
 const maptilerClient = require("@maptiler/client");
-const { getListingCategory } = require("../utils/categoryHelper.js");
+const { categorizeListing } = require("../utils/categoryHelper.js");
 const maptilerToken = process.env.MAPTILER_TOKEN ? process.env.MAPTILER_TOKEN.trim() : "";
 maptilerClient.config.apiKey = maptilerToken;
 
@@ -17,16 +17,17 @@ module.exports.index = async (req, res) => {
     }
     let listings = await Listing.find(query);
 
-    // Resolve accurate category for each listing (even before DB migration completes)
+    // Resolve categories for each listing
     listings = listings.map(l => {
         const item = l.toObject ? l.toObject() : { ...l };
-        item.category = getListingCategory(item);
+        item.categories = categorizeListing(item);
+        item.category = item.categories[0] || "trending";
         return item;
     });
 
     if (category && category.toLowerCase() !== "all") {
         const catLower = category.toLowerCase();
-        listings = listings.filter(l => (l.category || "").toLowerCase() === catLower);
+        listings = listings.filter(l => (l.categories || []).includes(catLower));
     }
 
     res.render("listings/index", { 

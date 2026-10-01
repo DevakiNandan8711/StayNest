@@ -224,9 +224,49 @@
     </div>
 
     <!-- Listings Container -->
+    <% 
+        const titleCategoryMap = {
+            "cozy beachfront cottage": "pools",
+            "modern loft in downtown": "rooms",
+            "mountain retreat": "mountain",
+            "historic villa in tuscany": "castles",
+            "secluded treehouse getaway": "camping",
+            "beachfront paradise": "trending",
+            "rustic cabin by the lake": "camping",
+            "luxury penthouse with city views": "cities",
+            "ski-in/ski-out chalet": "arctic",
+            "safari lodge in the serengeti": "farms",
+            "historic canal house": "cities",
+            "private island retreat": "pools",
+            "charming cottage in the cotswolds": "farms",
+            "historic brownstone in boston": "cities",
+            "beachfront bungalow in bali": "pools",
+            "mountain view cabin in banff": "mountain",
+            "art deco apartment in miami": "rooms",
+            "tropical villa in phuket": "pools",
+            "historic castle in scotland": "castles",
+            "desert oasis in dubai": "trending",
+            "rustic log cabin in montana": "mountain",
+            "beachfront villa in greece": "pools",
+            "eco-friendly treehouse retreat": "domes",
+            "historic cottage in charleston": "rooms",
+            "modern apartment in tokyo": "cities",
+            "lakefront cabin in new hampshire": "camping",
+            "luxury villa in the maldives": "pools",
+            "ski chalet in aspen": "arctic",
+            "secluded beach house in costa rica": "trending",
+            "all-inclusive tropical island resort": "trending"
+        };
+    %>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-3" id="listings-grid">
-        <% for(let listing of allListings){ %>
-            <div class="col listing-col" data-category="<%= (listing.category || 'trending').toLowerCase() %>">
+        <% for(let listing of allListings){ 
+            let effectiveCat = (listing.category || "").toLowerCase().trim();
+            const normalizedTitle = (listing.title || "").toLowerCase().trim();
+            if (!effectiveCat || effectiveCat === "trending") {
+                effectiveCat = titleCategoryMap[normalizedTitle] || effectiveCat || "trending";
+            }
+        %>
+            <div class="col listing-col" data-category="<%= effectiveCat %>" data-title="<%= listing.title %>">
                 <a href="/listings/<%=listing._id%>" class="listing-link">
                     <div class="card listing-card">
                         <img src="<%=listing.image.url %>" class="card-img-top" alt="listing_image"
@@ -258,6 +298,39 @@
     </div>
 
     <script>
+        const clientCategoryMap = {
+            "cozy beachfront cottage": "pools",
+            "modern loft in downtown": "rooms",
+            "mountain retreat": "mountain",
+            "historic villa in tuscany": "castles",
+            "secluded treehouse getaway": "camping",
+            "beachfront paradise": "trending",
+            "rustic cabin by the lake": "camping",
+            "luxury penthouse with city views": "cities",
+            "ski-in/ski-out chalet": "arctic",
+            "safari lodge in the serengeti": "farms",
+            "historic canal house": "cities",
+            "private island retreat": "pools",
+            "charming cottage in the cotswolds": "farms",
+            "historic brownstone in boston": "cities",
+            "beachfront bungalow in bali": "pools",
+            "mountain view cabin in banff": "mountain",
+            "art deco apartment in miami": "rooms",
+            "tropical villa in phuket": "pools",
+            "historic castle in scotland": "castles",
+            "desert oasis in dubai": "trending",
+            "rustic log cabin in montana": "mountain",
+            "beachfront villa in greece": "pools",
+            "eco-friendly treehouse retreat": "domes",
+            "historic cottage in charleston": "rooms",
+            "modern apartment in tokyo": "cities",
+            "lakefront cabin in new hampshire": "camping",
+            "luxury villa in the maldives": "pools",
+            "ski chalet in aspen": "arctic",
+            "secluded beach house in costa rica": "trending",
+            "all-inclusive tropical island resort": "trending"
+        };
+
         // Tax switch functionality
         const taxSwitch = document.getElementById("switchCheckDefault");
         if (taxSwitch) {
@@ -297,7 +370,12 @@
 
             // Show / hide listing cards
             listingCards.forEach(card => {
-                const cardCategory = (card.getAttribute("data-category") || "trending").toLowerCase();
+                let cardCategory = (card.getAttribute("data-category") || "").toLowerCase().trim();
+                const cardTitle = (card.getAttribute("data-title") || "").toLowerCase().trim();
+                if (!cardCategory || cardCategory === "trending") {
+                    cardCategory = clientCategoryMap[cardTitle] || cardCategory || "trending";
+                }
+
                 if (categoryLower === "all" || cardCategory === categoryLower) {
                     card.classList.remove("fade-out");
                     card.classList.add("fade-in");

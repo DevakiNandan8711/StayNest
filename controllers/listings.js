@@ -5,12 +5,24 @@ maptilerClient.config.apiKey = maptilerToken;
 
 
 module.exports.index = async (req, res) => {
-    let listings = await Listing.find({});
-    res.render("listings/index", { allListings: listings });
-    /* URL: http://localhost:8080/listings
-        Shows: All listings page 
-         Page: All listings page
-         Data: All listings data */
+    let { category, search } = req.query;
+    let query = {};
+    if (category && category !== "all") {
+        query.category = category.toLowerCase();
+    }
+    if (search) {
+        query.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } },
+            { country: { $regex: search, $options: "i" } }
+        ];
+    }
+    let listings = await Listing.find(query);
+    res.render("listings/index", { 
+        allListings: listings, 
+        activeCategory: category || "all", 
+        search: search || "" 
+    });
 };
 
 

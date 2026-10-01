@@ -16,38 +16,52 @@
             align-items: center;
             overflow-x: auto;
             flex-grow: 1;
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+            padding-bottom: 0.25rem;
         }
 
         #filters::-webkit-scrollbar {
-            display: none;
-            /* Chrome, Safari and Opera */
+            display: none; /* Chrome, Safari and Opera */
         }
 
         .filter {
             text-align: center;
-            margin-right: 2rem;
-            opacity: 0.7;
+            margin-right: 1.8rem;
+            opacity: 0.65;
             flex: 0 0 auto;
             cursor: pointer;
-            transition: opacity 0.2s ease;
+            transition: all 0.2s ease-in-out;
+            padding-bottom: 0.35rem;
+            border-bottom: 2.5px solid transparent;
+            text-decoration: none;
+            color: inherit;
         }
 
         .filter:hover {
             opacity: 1;
+            color: #fe424d;
+            border-bottom: 2.5px solid #ff9ea4;
+            transform: translateY(-2px);
+        }
+
+        .filter.active {
+            opacity: 1;
+            color: #fe424d;
+            border-bottom: 2.5px solid #fe424d;
+            font-weight: 600;
         }
 
         .filter i {
             font-size: 1.25rem;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.3rem;
+            display: block;
         }
 
         .filter p {
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             margin: 0;
+            white-space: nowrap;
         }
 
         /* Tax Toggle Container */
@@ -61,6 +75,7 @@
             background: #fff;
             height: 3.5rem;
             min-width: 250px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
 
         /* Responsive Grid for mobile view */
@@ -74,9 +89,8 @@
             #filters {
                 width: 100%;
                 display: grid;
-                grid-template-columns: repeat(5, 1fr);
-                /* 5 icons per row */
-                gap: 1.5rem 0.5rem;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.2rem 0.5rem;
                 overflow: hidden;
                 justify-items: center;
             }
@@ -87,7 +101,7 @@
             }
 
             .filter p {
-                font-size: 0.65rem;
+                font-size: 0.68rem;
             }
 
             .tax-toggle {
@@ -104,47 +118,91 @@
             color: #7d7d7d;
             font-weight: 500;
         }
+
+        /* Smooth animation for filtered cards */
+        .listing-col {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .listing-col.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+            display: none !important;
+        }
+
+        .listing-col.fade-in {
+            animation: fadeIn 0.35s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Empty state styling */
+        #empty-category-msg {
+            display: none;
+            text-align: center;
+            padding: 4rem 1rem;
+            width: 100%;
+        }
+
+        #empty-category-msg i {
+            font-size: 3rem;
+            color: #fe424d;
+            margin-bottom: 1rem;
+        }
     </style>
 
     <div id="filters-container">
         <div id="filters">
-            <div class="filter">
+            <div class="filter active" data-category="all">
+                <div><i class="fa-solid fa-border-all"></i></div>
+                <p>All</p>
+            </div>
+            <div class="filter" data-category="trending">
                 <div><i class="fa-solid fa-fire"></i></div>
                 <p>Trending</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="rooms">
                 <div><i class="fa-solid fa-bed"></i></div>
                 <p>Rooms</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="cities">
                 <div><i class="fa-solid fa-mountain-city"></i></div>
                 <p>Cities</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="mountain">
                 <div><i class="fa-solid fa-mountain"></i></div>
                 <p>Mountain</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="castles">
                 <div><i class="fa-solid fa-fort-awesome"></i></div>
                 <p>Castles</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="pools">
                 <div><i class="fa-solid fa-person-swimming"></i></div>
                 <p>Pools</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="camping">
                 <div><i class="fa-solid fa-campground"></i></div>
                 <p>Camping</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="farms">
                 <div><i class="fa-solid fa-cow"></i></div>
                 <p>Farms</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="arctic">
                 <div><i class="fa-solid fa-snowflake"></i></div>
                 <p>Arctic</p>
             </div>
-            <div class="filter">
+            <div class="filter" data-category="domes">
                 <div><i class="fa-solid fa-igloo"></i></div>
                 <p>Domes</p>
             </div>
@@ -159,13 +217,20 @@
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-3">
+    <!-- Active filter summary bar -->
+    <div id="filter-status-bar" class="d-flex align-items-center justify-content-between mt-3 px-1" style="display: none !important;">
+        <span id="filter-count-badge" class="text-muted small">Showing all listings</span>
+        <button id="reset-filter-btn" class="btn btn-sm btn-outline-secondary" style="font-size: 0.75rem; border-radius: 20px;">Clear Filter</button>
+    </div>
+
+    <!-- Listings Container -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-3" id="listings-grid">
         <% for(let listing of allListings){ %>
-            <div class="col">
+            <div class="col listing-col" data-category="<%= (listing.category || 'trending').toLowerCase() %>">
                 <a href="/listings/<%=listing._id%>" class="listing-link">
                     <div class="card listing-card">
                         <img src="<%=listing.image.url %>" class="card-img-top" alt="listing_image"
-                            style="height:20rem" />
+                            style="height:20rem; object-fit: cover;" />
                         <div class="card-img-overlay"></div>
                         <div class="card-body">
                             <p class="card-text">
@@ -181,19 +246,123 @@
                     </div>
                 </a>
             </div>
-            <% } %>
+        <% } %>
+    </div>
+
+    <!-- Empty Category Message -->
+    <div id="empty-category-msg">
+        <i class="fa-regular fa-compass"></i>
+        <h4>No listings found in this category</h4>
+        <p class="text-muted">Try selecting another category or view all available stays.</p>
+        <button class="btn btn-dark mt-2" id="show-all-btn" style="border-radius: 25px; padding: 0.5rem 1.5rem;">Show All Listings</button>
     </div>
 
     <script>
-        let taxSwitch = document.getElementById("switchCheckDefault");
-        taxSwitch.addEventListener("change", function () {
-            let taxinfo = document.getElementsByClassName("tax-info");
-            for (let info of taxinfo) {
-                if (info.style.display != "inline") {
-                    info.style.display = "inline";
-                } else {
-                    info.style.display = "none";
+        // Tax switch functionality
+        const taxSwitch = document.getElementById("switchCheckDefault");
+        if (taxSwitch) {
+            taxSwitch.addEventListener("change", function () {
+                const taxinfo = document.getElementsByClassName("tax-info");
+                for (let info of taxinfo) {
+                    if (info.style.display !== "inline") {
+                        info.style.display = "inline";
+                    } else {
+                        info.style.display = "none";
+                    }
                 }
+            });
+        }
+
+        // Category Filter Functionality
+        const filterElements = document.querySelectorAll(".filter");
+        const listingCards = document.querySelectorAll(".listing-col");
+        const emptyMsg = document.getElementById("empty-category-msg");
+        const filterStatusBar = document.getElementById("filter-status-bar");
+        const filterCountBadge = document.getElementById("filter-count-badge");
+        const resetFilterBtn = document.getElementById("reset-filter-btn");
+        const showAllBtn = document.getElementById("show-all-btn");
+
+        function filterListings(selectedCategory) {
+            let visibleCount = 0;
+            const categoryLower = (selectedCategory || "all").toLowerCase();
+
+            // Update active state on filter buttons
+            filterElements.forEach(filter => {
+                if (filter.getAttribute("data-category") === categoryLower) {
+                    filter.classList.add("active");
+                } else {
+                    filter.classList.remove("active");
+                }
+            });
+
+            // Show / hide listing cards
+            listingCards.forEach(card => {
+                const cardCategory = (card.getAttribute("data-category") || "trending").toLowerCase();
+                if (categoryLower === "all" || cardCategory === categoryLower) {
+                    card.classList.remove("fade-out");
+                    card.classList.add("fade-in");
+                    card.style.display = "block";
+                    visibleCount++;
+                } else {
+                    card.classList.remove("fade-in");
+                    card.classList.add("fade-out");
+                    card.style.display = "none";
+                }
+            });
+
+            // Toggle empty state
+            if (visibleCount === 0) {
+                emptyMsg.style.display = "block";
+            } else {
+                emptyMsg.style.display = "none";
+            }
+
+            // Update filter status bar
+            if (categoryLower !== "all") {
+                filterStatusBar.style.setProperty("display", "flex", "important");
+                const catName = categoryLower.charAt(0).toUpperCase() + categoryLower.slice(1);
+                filterCountBadge.textContent = `Showing ${visibleCount} listing${visibleCount === 1 ? '' : 's'} in ${catName}`;
+            } else {
+                filterStatusBar.style.setProperty("display", "none", "important");
+            }
+
+            // Update URL without page reload
+            const url = new URL(window.location);
+            if (categoryLower === "all") {
+                url.searchParams.delete("category");
+            } else {
+                url.searchParams.set("category", categoryLower);
+            }
+            window.history.replaceState({}, "", url);
+        }
+
+        // Add click listener to each filter button
+        filterElements.forEach(filter => {
+            filter.addEventListener("click", function () {
+                const targetCategory = this.getAttribute("data-category");
+                // If clicking currently active non-all category, reset to all
+                if (this.classList.contains("active") && targetCategory !== "all") {
+                    filterListings("all");
+                } else {
+                    filterListings(targetCategory);
+                }
+            });
+        });
+
+        // Reset filter buttons
+        if (resetFilterBtn) {
+            resetFilterBtn.addEventListener("click", () => filterListings("all"));
+        }
+        if (showAllBtn) {
+            showAllBtn.addEventListener("click", () => filterListings("all"));
+        }
+
+        // Check URL parameter on page load (e.g. ?category=mountain)
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const initialCategory = params.get("category");
+            if (initialCategory) {
+                filterListings(initialCategory);
             }
         });
     </script>

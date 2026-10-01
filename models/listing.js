@@ -36,6 +36,23 @@ const listingSchema = new Schema({
             type: [Number],
             required: true
         }
+    },
+    category: {
+        type: String,
+        enum: [
+            "trending",
+            "rooms",
+            "cities",
+            "mountain",
+            "castles",
+            "pools",
+            "camping",
+            "farms",
+            "arctic",
+            "domes",
+            "boats"
+        ],
+        default: "trending"
     }
 });
 

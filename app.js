@@ -18,7 +18,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/StayNest";
 
 main()
   .then(() => {
@@ -39,10 +39,12 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+const secret = process.env.SECRET || "mysupersecretcode";
+
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret: process.env.SECRET,
+    secret: secret,
   },
   touchAfter: 24 * 3600,
 });
@@ -53,7 +55,7 @@ store.on("error", function (err) {
 
 const sessionOptions = {
   store,
-  secret: process.env.SECRET,
+  secret: secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -77,6 +79,7 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.currentUser = req.user;
   res.locals.mapToken = process.env.MAPTILER_TOKEN ? process.env.MAPTILER_TOKEN.trim() : "";
+  res.locals.search = req.query.search || "";
   next();
 });
 

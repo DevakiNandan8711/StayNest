@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Form</title>
+</head>
+<body>
+    <h3>Test Form</h3>
+    <form method="post" action="/listings">
+        <div>
+            <label for="title">Title:</label>
+            <input name="listing[title]" type="text" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea name="listing[description]"></textarea>
+        </div>
+        <div>
+            <label for="price">Price:</label>
+            <input name="listing[price]" type="number">
+        </div>
+        <div>
+            <label for="location">Location:</label>
+            <input name="listing[location]" type="text">
+        </div>
+        <div>
+            <label for="country">Country:</label>
+            <input name="listing[country]" type="text">
+        </div>
+        <div>
+            <label for="image_url">Image URL:</label>
+            <input name="listing[image][url]" type="text">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+

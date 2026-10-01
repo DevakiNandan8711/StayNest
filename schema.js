@@ -11,8 +11,7 @@ module.exports.listingSchema = Joi.object({
       image: Joi.object({
          url: Joi.string().allow("", null)
       }),
-
-
+      category: Joi.string().allow("", null)
    }).required()
 
 });
